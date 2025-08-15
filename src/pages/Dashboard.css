@@ -1,0 +1,22 @@
+.main-toolbar {
+    --padding-top: 5px;
+    --padding-bottom: 5px;
+}
+
+.header-logo {
+    height: 10vh;;
+    width: auto; 
+    margin: 6px 16px; 
+}
+
+.header-logo-inverted {
+    filter: brightness(0) invert(1);
+}
+
+ion-list-header {
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--ion-color-medium-shade);
+    margin-top: 10px;
+}

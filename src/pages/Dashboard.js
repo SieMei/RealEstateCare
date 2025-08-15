@@ -1,0 +1,104 @@
+import {
+  IonBadge,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonButtons,
+  IonImg,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+} from "@ionic/react";
+import {
+  archiveOutline,
+  bookOutline,
+  clipboardOutline,
+  settingsOutline,
+} from "ionicons/icons";
+import React from "react";
+import logo from "../rec-logo.png";
+import "./Dashboard.css";
+
+const Dashboard = () => {
+  // fictief aantal toegewezen rapportages
+  const assignedReportsCount = 3;
+  // fictieve naam voor de inspecteur, in later stadium is dit de ingelogde gebruiker
+  const inspectorName = "Marieke de Boer";
+
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar color="primary" className="main-toolbar">
+          <IonButtons slot="start">
+            <IonImg
+              src={logo}
+              className="header-logo header-logo-inverted"
+              alt="Real Estate Care logo"
+            />
+          </IonButtons>
+          <IonTitle className="ion-text-center">Dashboard</IonTitle>
+        </IonToolbar>
+      </IonHeader>
+      <IonContent fullscreen>
+        <IonHeader collapse="condense">
+          <IonToolbar>
+            <IonTitle size="large">Dashboard</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+        <IonCard>
+          <IonCardHeader>
+            <IonCardSubtitle>Welkom, {inspectorName}!</IonCardSubtitle>
+            <IonCardTitle>Uw rapportages</IonCardTitle>
+          </IonCardHeader>
+          <IonCardContent>
+            U heeft <strong>{assignedReportsCount}</strong> nieuwe inspectie(s)
+            toegewezen gekregen.
+          </IonCardContent>
+        </IonCard>
+
+        <IonList>
+          <IonListHeader>
+            <IonLabel>Acties</IonLabel>
+          </IonListHeader>
+
+          <IonItem button routerLink="/inspecties" detail={true}>
+            <IonIcon slot="start" icon={clipboardOutline} color="primary" />
+            <IonLabel>Toegewezen rapportages</IonLabel>
+            {assignedReportsCount > 0 && (
+              <IonBadge slot="end" color="danger">
+                {assignedReportsCount}
+              </IonBadge>
+            )}
+          </IonItem>
+
+          <IonItem button routerLink="/inspecties" detail={true}>
+            <IonIcon slot="start" icon={archiveOutline} />
+            <IonLabel>Uitgevoerde rapportages</IonLabel>
+          </IonItem>
+
+          <IonItem button routerLink="/kennisbank" detail={true}>
+            <IonIcon slot="start" icon={bookOutline} />
+            <IonLabel>Kennisbank</IonLabel>
+          </IonItem>
+
+          <IonItem button routerLink="/profiel" detail={true}>
+            <IonIcon slot="start" icon={settingsOutline} />
+            <IonLabel>Instellingen</IonLabel>
+          </IonItem>
+        </IonList>
+      </IonContent>
+    </IonPage>
+  );
+};
+
+export default Dashboard;
