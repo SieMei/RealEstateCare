@@ -26,15 +26,16 @@ import {
 } from "ionicons/icons";
 import React from "react";
 import logo from "../rec-logo.png";
+import ExecutedInspectionsList from "../components/ExecutedInspectionsList"; // Importeren van de opgeschoonde component
 import "./Dashboard.css";
 
 const Dashboard = () => {
   // fictief aantal toegewezen rapportages
   const assignedReportsCount = 3;
-  // fictieve naam voor de inspecteur
+  // fictieve naam voor de inspecteur. Later kan dit uit de API of login-sessie komen.
   const inspectorName = "Marieke de Boer";
 
-  // begroeting op basis van tijdstip
+  // bepaal de begroeting op basis van het tijdstip
   const getGreeting = () => {
     const currentHour = new Date().getHours();
     if (currentHour >= 5 && currentHour < 12) {
@@ -107,9 +108,13 @@ const Dashboard = () => {
             <IonLabel>Instellingen</IonLabel>
           </IonItem>
         </IonList>
+
+        <ExecutedInspectionsList />
+
       </IonContent>
     </IonPage>
   );
 };
+
 
 export default Dashboard;

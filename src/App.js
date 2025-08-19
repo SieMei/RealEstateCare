@@ -13,6 +13,9 @@ import {
 import { IonReactRouter } from "@ionic/react-router";
 import { home, search, book, personCircle } from "ionicons/icons";
 import Dashboard from "./pages/Dashboard";
+import Inspecties from './pages/Inspecties';
+import Kennisbank from './pages/Kennisbank';
+import Profiel from './pages/Profiel';
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -42,10 +45,9 @@ const App = () => (
         <IonRouterOutlet>
           <Route exact path="/dashboard" component={Dashboard} />
 
-          {/* tijdelijke routes voor de andere tabs, aanpassen als de tabs gevuld zijn! */}
-          <Route exact path="/inspecties" component={Dashboard} />
-          <Route exact path="/kennisbank" component={Dashboard} />
-          <Route exact path="/profiel" component={Dashboard} />
+          <Route exact path="/inspecties" component={Inspecties} />
+          <Route exact path="/kennisbank" component={Kennisbank} />
+          <Route exact path="/profiel" component={Profiel} />
 
           <Redirect exact from="/" to="/dashboard" />
         </IonRouterOutlet>
