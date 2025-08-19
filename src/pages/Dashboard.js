@@ -31,8 +31,19 @@ import "./Dashboard.css";
 const Dashboard = () => {
   // fictief aantal toegewezen rapportages
   const assignedReportsCount = 3;
-  // fictieve naam voor de inspecteur, in later stadium is dit de ingelogde gebruiker
+  // fictieve naam voor de inspecteur
   const inspectorName = "Marieke de Boer";
+
+  // begroeting op basis van tijdstip
+  const getGreeting = () => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 5 && currentHour < 12) {
+      return "Goedemorgen";
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return "Goedemiddag";
+    }
+    return "Goedenavond";
+  };
 
   return (
     <IonPage>
@@ -57,7 +68,7 @@ const Dashboard = () => {
 
         <IonCard>
           <IonCardHeader>
-            <IonCardSubtitle>Welkom, {inspectorName}!</IonCardSubtitle>
+            <IonCardSubtitle>{getGreeting()}, {inspectorName}!</IonCardSubtitle>
             <IonCardTitle>Uw rapportages</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
