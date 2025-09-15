@@ -93,13 +93,16 @@ const Login = ({ history }) => {
           <form onSubmit={handleSend} noValidate>
             <IonItem>
               <IonLabel position="stacked">E-mail</IonLabel>
-              <IonInput
-                type="email"
-                value={email}
-                placeholder="jij@rec.nl"
-                onIonChange={(e) => setEmail(e.detail.value)}
-                required
-              />
+             <IonInput
+  type="email"
+  value={email}
+  placeholder="jij@rec.nl"
+  onIonInput={e => {
+    const val = e.detail.value ?? e.target.value ?? "";
+    setEmail(val);
+  }}
+  required
+/>
             </IonItem>
             <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 12 }}>
               <IonButton type="submit">Stuur code</IonButton>
@@ -134,14 +137,16 @@ const Login = ({ history }) => {
             <form onSubmit={handleLogin} noValidate>
               <IonItem>
                 <IonLabel position="stacked">Bevestig code</IonLabel>
-                <IonInput
-                  inputmode="numeric"
-                  maxlength={6}
-                  value={code}
-                  placeholder="6-cijferige code"
-                  onIonChange={(e) => setCode((e.detail.value || "").replace(/\D/g, "").slice(0, 6))}
-                  required
-                />
+<IonInput
+  inputmode="numeric"
+  value={code}
+  placeholder="6-cijferige code"
+  onIonInput={e => {
+    const val = e.detail.value ?? e.target.value ?? "";
+    setCode((val || "").replace(/\D/g, "").slice(0, 6));
+  }}
+  required
+/>
               </IonItem>
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
                 <IonButton fill="outline" onClick={() => setSent(false)}>Andere e-mail</IonButton>
@@ -156,7 +161,7 @@ const Login = ({ history }) => {
           message={toast.msg}
           color={toast.color}
           duration={toast.dur}
-          onDidDismiss={() => setToast({ ...toast, open: false })}
+          onDidDismiss={() => setToast(t => ({ ...t, open: false }))}
         />
       </IonContent>
     </IonPage>
