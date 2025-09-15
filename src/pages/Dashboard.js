@@ -24,7 +24,7 @@ import {
   clipboardOutline,
   settingsOutline,
 } from "ionicons/icons";
-import React, { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../rec-logo.png";
 import {
@@ -62,26 +62,26 @@ const Dashboard = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader translucent={true}>
         <IonToolbar color="primary" className="main-toolbar">
           <IonButtons slot="start">
             <IonImg
               src={logo}
               className="header-logo header-logo-inverted"
-              alt="Real Estate Care logo"
+              alt="RealEstateCare logo"
             />
           </IonButtons>
           <IonTitle className="ion-text-center">Dashboard</IonTitle>
         </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
+        <IonToolbar collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Dashboard</IonTitle>
           </IonToolbar>
         </IonHeader>
 
         <IonCard>
+      <IonContent fullscreen>
+        <div className="ion-padding">
           <IonCardHeader>
             <IonCardSubtitle>{getGreeting()}, {inspectorName}!</IonCardSubtitle>
             <IonCardTitle>Uw rapportages</IonCardTitle>
@@ -90,8 +90,6 @@ const Dashboard = () => {
             U heeft <strong>{assignedReportsCount}</strong> nieuwe inspectie(s)
             toegewezen gekregen.
           </IonCardContent>
-        </IonCard>
-
         <IonList>
           <IonListHeader>
             <IonLabel>Acties</IonLabel>
@@ -124,6 +122,8 @@ const Dashboard = () => {
         </IonList>
 
         <UitgevoerdeInspectiesLijst />
+        </div>
+      </IonContent>
 
       </IonContent>
     </IonPage>
