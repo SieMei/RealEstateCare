@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# RealEstateCare App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Dit project is een prototype van een mobiele webapplicatie voor RealEstateCare, een dienstverlener die woningen onderhoudt, verbetert en inspecteert. Inspecteurs gebruiken de app om op locatie rapportages te maken van schade, onderhoud, installaties en modificaties. De app sluit aan op een web-API en is gebouwd als Single Page Application (SPA) met React en Ionic.
 
-## Available Scripts
+## Kenmerken
 
-In the project directory, you can run:
+*   **Login:** Veilige login-simulatie via `localStorage`.
+*   **Dashboard:** Centraal overzicht met toegang tot:
+    *   Toegewezen inspecties
+    *   Recent uitgevoerde inspecties
+    *   Kennisbank
+    *   Profiel & Instellingen
+*   **Inspectiebeheer:**
+    *   Gedetailleerde formulieren voor **schade**, **onderhoud**, **installaties** en **modificaties**.
+    *   Voeg foto's toe direct vanaf de **camera** of uit de **galerij**.
+    *   Sla een conceptrapportage tussentijds op (status: `in uitvoering`).
+    *   Dien een voltooide rapportage in (status: `ingediend`).
+    *   Bekijk en beheer uitgevoerde inspecties.
+*   **Kennisbank:** Directe toegang tot belangrijke documenten zoals testprocedures en normbladen.
+*   **Profiel & Instellingen:** Personaliseer de app-ervaring met o.a. lichte/donkere modus.
 
-### `npm start`
+## Technische stack
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+*   **Framework:** React met Ionic voor een robuuste, mobiel-vriendelijke UI.
+*   **State Management:** Redux Toolkit voor voorspelbaar en efficiënt state management.
+*   **Routing:** React Router voor navigatie binnen de SPA.
+*   **Componenten:** Een rijke set aan mobiele UI-componenten van Ionic.
+*   **Camera:** Native camera- en galerijfunctionaliteit via @capacitor/camera.
+*   **Styling:** Gestyled volgens de RealEstateCare huisstijl.
+*   **Backend (Prototype):** JSON-server gehost op Azure voor het simuleren van de API.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Aan de slag
 
-### `npm test`
+### Vereisten
+Zorg dat je Node.js (versie 14.0.0 of hoger) en npm geïnstalleerd hebt.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installatie
+1.  Kloon de repository:
+    ```bash
+    git clone https://github.com/jouw-gebruikersnaam/rec-app.git
+    ```
+2.  Navigeer naar de projectmap:
+    ```bash
+    cd rec-app
+    ```
+3.  Installeer de dependencies:
+    ```bash
+    npm install
+    ```
 
-### `npm run build`
+### Applicatie starten
+Start de development server:
+```bash
+npm start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Hosting & demo
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+*   **Frontend:** Het prototype is live te bekijken op Azure Static Web Apps: https://red-coast-03b9e441e.1.azurestaticapps.net
+*   **Backend:** De gesimuleerde API draait op Azure App Service, rec-api.azurewebsites.net
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Verantwoording
 
-### `npm run eject`
+Bij de ontwikkeling van dit prototype is rekening gehouden met:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+*   **Ontwerp & bruikbaarheid:** De applicatie is ontworpen rond de workflow van de inspecteur. Er is gebruikgemaakt van duidelijke statuslabels en consistente terminologie om de bruikbaarheid te maximaliseren (Nielsen's Heuristieken).
+*   **Toegankelijkheid (Accessibility):** Dankzij het gebruik van Ionic-componenten is een basisniveau van toegankelijkheid (WCAG 2.1 A) gewaarborgd, met ondersteuning voor ARIA-attributen en goed kleurcontrast.
+*   **Beveiliging:** De login is gesimuleerd zonder wachtwoorden naar de backend te sturen. Dit prototype is voorbereid op een uitbreiding naar een veilig authenticatiesysteem zoals 2FA.
+*   **Codekwaliteit:** Het project volgt de style guides en best practices van React en Ionic, met een duidelijke projectstructuur en het gebruik van design patterns zoals het "slice pattern" in Redux.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Bekende beperkingen
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+*   **Offline Functionaliteit:** Caching voor offline gebruik is nog niet geïmplementeerd omdat Capacitor Storage/Service Workers nog niet zijn geïntegreerd.
+*   **Authenticatie:** De login is een simulatie en maakt geen gebruik van een echt authenticatiesysteem.
+*   **Data persistentie:** De prototype-API ondersteunt alleen het lezen en aanpassen van data (`read`/`patch`), geen volledige CRUD-functionaliteit.
+*   **UI/UX:** De gebruikersinterface kan verder worden verfijnd op basis van feedback van eindgebruikers (inspecteurs).

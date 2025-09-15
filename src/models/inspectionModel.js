@@ -1,4 +1,3 @@
-// dit is een model voor inspecties met diverse velden (met fallbacks voor ontbrekende waarden)
 
 export const mapInspection = (apiInspection) => ({
   id: apiInspection.id,

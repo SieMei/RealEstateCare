@@ -24,15 +24,29 @@ import {
   clipboardOutline,
   settingsOutline,
 } from "ionicons/icons";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import logo from "../rec-logo.png";
-import ExecutedInspectionsList from "../components/ExecutedInspectionsList"; // Importeren van de opgeschoonde component
+import {
+  fetchInspections,
+  selectAllInspections,
+} from "../store/inspectionsSlice";
+import UitgevoerdeInspectiesLijst from "../components/UitgevoerdeInspectiesLijst";
 import "./Dashboard.css";
 
 const Dashboard = () => {
-  // fictief aantal toegewezen rapportages
-  const assignedReportsCount = 3;
-  // fictieve naam voor de inspecteur. Later kan dit uit de API of login-sessie komen.
+  const dispatch = useDispatch();
+  const allInspections = useSelector(selectAllInspections);
+  const inspectionsStatus = useSelector((s) => s.inspections.status);
+
+  useEffect(() => {
+    if (inspectionsStatus === "idle") {
+      dispatch(fetchInspections());
+    }
+  }, [dispatch, inspectionsStatus]);
+
+  const assignedReportsCount = useMemo(() => allInspections.filter((i) => i.status === "toegewezen").length, [allInspections]);
+
   const inspectorName = "Marieke de Boer";
 
   // bepaal de begroeting op basis van het tijdstip
@@ -93,7 +107,7 @@ const Dashboard = () => {
             )}
           </IonItem>
 
-          <IonItem button routerLink="/inspecties" detail={true}>
+          <IonItem button routerLink="/inspecties/uitgevoerd" detail={true}>
             <IonIcon slot="start" icon={archiveOutline} />
             <IonLabel>Uitgevoerde rapportages</IonLabel>
           </IonItem>
@@ -103,13 +117,13 @@ const Dashboard = () => {
             <IonLabel>Kennisbank</IonLabel>
           </IonItem>
 
-          <IonItem button routerLink="/profiel" detail={true}>
+          <IonItem button routerLink="/instellingen" detail={true}>
             <IonIcon slot="start" icon={settingsOutline} />
             <IonLabel>Instellingen</IonLabel>
           </IonItem>
         </IonList>
 
-        <ExecutedInspectionsList />
+        <UitgevoerdeInspectiesLijst />
 
       </IonContent>
     </IonPage>
