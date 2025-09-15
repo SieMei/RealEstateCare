@@ -62,26 +62,26 @@ const Dashboard = () => {
 
   return (
     <IonPage>
-      <IonHeader translucent={true}>
+      <IonHeader>
         <IonToolbar color="primary" className="main-toolbar">
           <IonButtons slot="start">
             <IonImg
               src={logo}
               className="header-logo header-logo-inverted"
-              alt="RealEstateCare logo"
+              alt="RealEstateCare logo" // Consistent alt text
             />
           </IonButtons>
           <IonTitle className="ion-text-center">Dashboard</IonTitle>
         </IonToolbar>
-        <IonToolbar collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Dashboard</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-
-        <IonCard>
+      </IonHeader>
       <IonContent fullscreen>
+        <IonHeader collapse="condense">
+        <IonToolbar>
+          <IonTitle size="large">Dashboard</IonTitle>
+        </IonToolbar>
+        </IonHeader>
         <div className="ion-padding">
+          <IonCard>
           <IonCardHeader>
             <IonCardSubtitle>{getGreeting()}, {inspectorName}!</IonCardSubtitle>
             <IonCardTitle>Uw rapportages</IonCardTitle>
@@ -90,6 +90,7 @@ const Dashboard = () => {
             U heeft <strong>{assignedReportsCount}</strong> nieuwe inspectie(s)
             toegewezen gekregen.
           </IonCardContent>
+          </IonCard>
         <IonList>
           <IonListHeader>
             <IonLabel>Acties</IonLabel>
@@ -123,8 +124,6 @@ const Dashboard = () => {
 
         <UitgevoerdeInspectiesLijst />
         </div>
-      </IonContent>
-
       </IonContent>
     </IonPage>
   );
