@@ -24,7 +24,6 @@ import { useParams } from "react-router";
 import {
   fetchInspectionById,
   selectInspectionById,
-  saveInspectionDraft,
   STATUS,
 } from "../store/inspectionsSlice";
 import IncidentForm from "../components/IncidentForm";
@@ -62,19 +61,6 @@ export default function InspectieDetail() {
   // formulier blokkeren bij afgeronde/ingediende/gearchiveerde rapportages
   const lockedStatuses = [STATUS.INGEDIEND, STATUS.AFGEROND, STATUS.GEARCHIVEERD];
   const isLocked = !!inspection && lockedStatuses.includes(inspection.status);
-
-  async function handleSaveDraft() {
-    if (!draft) {
-      setToast({ open: true, msg: "Er zijn geen wijzigingen om tussentijds op te slaan.", color: "warning" });
-      return;
-    }
-    try {
-      await dispatch(saveInspectionDraft({ id, draft })).unwrap();
-      setToast({ open: true, msg: "Uw concept is tussentijds opgeslagen. De status is ‘in uitvoering’.", color: "success" });
-    } catch (e) {
-      setToast({ open: true, msg: "Tussentijds opslaan is mislukt.", color: "danger" });
-    }
-  }
 
   async function handleSave() {
     if (!draft) return;
