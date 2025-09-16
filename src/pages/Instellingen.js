@@ -97,9 +97,9 @@ const Instellingen = ({ dark, setDark }) => {
               checked={!!notifications}
               onIonChange={(e) => setNotifications(e.detail.checked)}
             />
-          </IonItem>
-
-          <IonItem>
+</IonItem>
+{/* taal instellen is voorbeeld, er is geen vertaling beschikbaar */}
+<IonItem>
             <IonLabel position="stacked">Taal</IonLabel>
             <IonSelect
               value={locale}

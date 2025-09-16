@@ -1,5 +1,4 @@
 
-import React from "react";
 import {
   IonPage,
   IonHeader,
@@ -40,7 +39,7 @@ const Profiel = () => {
   
   function handleLogout() {
     try {
-      localStorage.removeItem("auth"); // login-simulatie token
+      localStorage.removeItem("auth");
     } catch {}
     history.replace("/login");
   }

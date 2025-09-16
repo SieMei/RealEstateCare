@@ -29,7 +29,7 @@ const TYPE_OPTIONS = [
   { value: "modification", label: "Modificatie" },
 ];
 
-// helper om datum te formateren voor <input type="date" />
+// helper om datum te formatteren voor <input type="date" />
 function toDateInputValue(d) {
   if (!d) return "";
   const dt = typeof d === "string" ? new Date(d) : d;

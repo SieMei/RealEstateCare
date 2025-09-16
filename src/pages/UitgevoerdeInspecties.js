@@ -18,7 +18,7 @@ const UitgevoerdeInspecties = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/dashboard" />
           </IonButtons>
-          <IonTitle>Uitgevoerde rapportages</IonTitle>
+          <IonTitle>Uitgevoerde inspecties</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent>

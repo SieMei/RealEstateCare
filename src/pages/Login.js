@@ -120,7 +120,7 @@ const Login = ({ history }) => {
             </div>
             <IonText color="medium">
               <p style={{ marginTop: 12 }}>
-                Dit is een <b>login-simulatie</b>. U kunt een willekeurig e-mailadres invullen en elk wachtwoord wordt geaccepteerd. De voltooide app werkt uiteraard met een werkende login.
+                Dit is een <b>login-simulatie</b>. U kunt een willekeurig mailadres invullen en elk wachtwoord wordt geaccepteerd. De voltooide app werkt uiteraard met een werkende login.
               </p>
             </IonText>
           </form>

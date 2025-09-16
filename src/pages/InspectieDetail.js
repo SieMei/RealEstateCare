@@ -58,7 +58,7 @@ export default function InspectieDetail() {
 
   const items = useMemo(() => inspection?.incidents || [], [inspection]);
 
-  // formulier blokkeren bij afgeronde/ingediende/gearchiveerde rapportages
+  // formulier blokkeren bij afgeronde,ingediende en gearchiveerde rapportages
   const lockedStatuses = [STATUS.INGEDIEND, STATUS.AFGEROND, STATUS.GEARCHIVEERD];
   const isLocked = !!inspection && lockedStatuses.includes(inspection.status);
 
@@ -157,7 +157,7 @@ export default function InspectieDetail() {
             {isLocked && (
               <IonText color="medium">
                 <p style={{ marginTop: 8 }}>
-                  ✳️ Deze rapportage is <b>{inspection.status}</b> en kan niet meer bewerkt worden.
+                  Deze rapportage is <b>{inspection.status}</b> en kan niet meer bewerkt worden.
                 </p>
               </IonText>
             )}

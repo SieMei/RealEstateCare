@@ -1,8 +1,8 @@
 :root {
-  /** lettertype voor applicatie aangepast ivm huisstijl **/
+  /** lettertype aangepast ivm huisstijl **/
   --ion-font-family: 'Lucida Grande', 'Lucida Sans Unicode', Verdana, sans-serif;
 
-  /** kleuren aangepast ivm huisstijl **/
+/** kleuren aangepast voor huisstijl **/
     --ion-color-primary: #0eaba3;
     /* Nieuwe huisstijlkleur */
     --ion-color-primary-rgb: 14, 171, 163;
