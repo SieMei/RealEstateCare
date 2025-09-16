@@ -68,18 +68,14 @@ const Dashboard = () => {
             <IonImg
               src={logo}
               className="header-logo header-logo-inverted"
-              alt="RealEstateCare logo" // Consistent alt text
+              alt="RealEstateCare logo"
             />
           </IonButtons>
-          <IonTitle className="ion-text-center">Dashboard</IonTitle>
+          <IonTitle className="ion-text-center dashboard-title">Dashboard</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-        <IonToolbar>
-          <IonTitle size="large">Dashboard</IonTitle>
-        </IonToolbar>
-        </IonHeader>
+      <IonContent>
+
         <div className="ion-padding">
           <IonCard>
           <IonCardHeader>

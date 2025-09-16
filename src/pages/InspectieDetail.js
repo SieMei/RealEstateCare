@@ -102,7 +102,7 @@ export default function InspectieDetail() {
       await patchInspection(id, payload);
       await dispatch(fetchInspectionById(id));
       setDraft(null);
-      setToast({ open: true, msg: "Uw inspectie is opgeslagen.", color: "success" });
+      setToast({ open: true, msg: "Het formulier is opgeslagen.", color: "success" });
     } catch (e) {
       setToast({
         open: true,
@@ -111,6 +111,22 @@ export default function InspectieDetail() {
       });
     }
   }
+
+  async function handleSubmitInspection() {
+    try {
+      const payload = {
+        status: STATUS.INGEDIEND,
+        updatedAt: new Date().toISOString(),
+      };
+      await patchInspection(id, payload);
+      // opnieuw ophalen om locked status te activeren
+      await dispatch(fetchInspectionById(id));
+      setToast({ open: true, msg: "Inspectie succesvol ingediend.", color: "success" });
+    } catch (e) {
+      setToast({ open: true, msg: "Indienen van inspectie is mislukt.", color: "danger" });
+    }
+  }
+
 
   if (!inspection) {
     return (
@@ -149,7 +165,7 @@ export default function InspectieDetail() {
           </IonCardHeader>
           <IonCardContent>
             <div><b>Status:</b> {inspection.status || "-"}</div>
-            <div><b>Doelen:</b> {(inspection.purpose || []).join(", ") || "-"}</div>
+            <div><b>Doel van inspectie:</b> {(inspection.purpose || []).join(", ") || "-"}</div>
             <div><b>Laatst gewijzigd:</b> {fmtDate(inspection.updatedAt)}</div>
 
             {isLocked && (
@@ -167,40 +183,59 @@ export default function InspectieDetail() {
                 </p>
               </IonText>
             )}
+
           </IonCardContent>
         </IonCard>
 
         {/* nieuwe inspectie */}  
-        <IonCard>
-          <IonCardHeader>
-            <IonCardTitle>Nieuwe inspectie</IonCardTitle>
-          </IonCardHeader>
-          <IonCardContent>
-            {isLocked ? (
-              <IonText color="medium">
-                <p style={{ marginBottom: 0 }}>
-                  Het formulier is niet beschikbaar: deze rapportage is {inspection.status}.
-                </p>
-              </IonText>
-            ) : (
-              <>
-                <IncidentForm initial={inspection.draft || {}} onChange={setDraft} />
+        {!isLocked && (
+          <IonCard>
+            <IonCardHeader>
+              <IonCardTitle>Nieuwe inspectie</IonCardTitle>
+            </IonCardHeader>
+            <IonCardContent>
+                <>
+                  <IncidentForm initial={inspection.draft || {}} onChange={setDraft} />
+  
+                  {/* visuele scheiding voor Opslaan-knop */}
+                  <div
+                    style={{
+                      height: "2px",
+                      background: "var(--ion-color-step-200, #cccccc)",
+                      margin: "16px 0",
+                    }}
+                    aria-hidden="true"
+                  />
+  
+                  <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", marginTop: 12, flexWrap: "wrap" }}>
+                    <IonButton fill="outline" onClick={() => setDraft(null)}>
+                      Annuleren
+                    </IonButton>
+                    <IonButton onClick={handleSave} disabled={!draft}>
+                      Opslaan
+                    </IonButton>
+                  </div>
+                </>
+            </IonCardContent>
+          </IonCard>
+        )}
 
-                <div style={{ display: "flex", gap: 8, justifyContent: "flex-end", marginTop: 12, flexWrap: "wrap" }}>
-                  <IonButton fill="outline" onClick={handleSaveDraft} disabled={!draft}>
-                    Tussentijds opslaan
-                  </IonButton>
-                  <IonButton fill="outline" onClick={() => setDraft(null)}>
-                    Annuleren
-                  </IonButton>
-                  <IonButton onClick={handleSave} disabled={!draft}>
-                    Opslaan
-                  </IonButton>
-                </div>
-              </>
-            )}
-          </IonCardContent>
-        </IonCard>
+        {/* inspectie indienen */}
+        {!isLocked && (
+          <IonCard>
+
+            <IonCardContent>
+              <IonButton
+                expand="block"
+                onClick={handleSubmitInspection}
+                disabled={!!draft || items.length === 0}
+              >
+                Inspectie Indienen
+              </IonButton>
+              {(!!draft || items.length === 0) && <IonText color="medium"><p style={{ fontSize: '0.8em', textAlign: 'center', marginTop: '4px' }}>Rond  het openstaande formulier af en voeg minimaal één inspectie-item toe.</p></IonText>}
+            </IonCardContent>
+          </IonCard>
+        )}
 
         {/* eerdere inspecties */}
         <h3 style={{ marginTop: 16 }}>Eerdere inspecties</h3>

@@ -52,7 +52,7 @@ const Profiel = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/dashboard" />
           </IonButtons>
-          <IonTitle>Profiel</IonTitle>
+          <IonTitle className="header-title">Profiel</IonTitle>
         </IonToolbar>
       </IonHeader>
 

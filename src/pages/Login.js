@@ -5,29 +5,29 @@ import {
   IonItem, IonLabel, IonInput, IonButton, IonToast, IonText, IonCard, IonCardContent
 } from "@ionic/react";
 import { login } from "../services/auth";
-
 const DEFAULT_USER = {
   name: "Marieke de Boer",
   email: "marieke.deboer@rec.nl",
   role: "Inspecteur Vastgoed",
 };
 
-function genCode() {
+function gen2FACode() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
 const Login = ({ history }) => {
+  const [step, setStep] = useState(1);
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [password, setPassword] = useState("");
   const [serverCode, setServerCode] = useState("");
-  const [code, setCode] = useState("");
+  const [userCode, setUserCode] = useState("");
   const [toast, setToast] = useState({ open: false, msg: "", color: "success", dur: 2500 });
   const [cooldown, setCooldown] = useState(0);
 
   useEffect(() => {
     if (cooldown <= 0) return;
-    const t = setInterval(() => setCooldown((c) => c - 1), 1000);
-    return () => clearInterval(t);
+    const timer = setInterval(() => setCooldown((c) => c - 1), 1000);
+    return () => clearInterval(timer);
   }, [cooldown]);
 
   function show(msg, color = "success", dur = 2500) {
@@ -42,39 +42,43 @@ const Login = ({ history }) => {
     return `${uu}@${d}`;
   }, [email]);
 
-  const handleSend = (e) => {
+  const handlePasswordSubmit = (e) => {
     e.preventDefault();
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
       return show("Vul een geldig e-mailadres in.", "warning", 3500);
     }
-    const c = genCode();
+    if (!password) {
+      return show("Vul een wachtwoord in.", "warning", 3500);
+    }
+    // simuleer succesvolle wachtwoordverificatie, ga naar 2FA
+    const c = gen2FACode();
     setServerCode(c);
-    setSent(true);
     setCooldown(30);
-    show(`Je 2FA-code is: ${c}`, "medium", 10000);
+    setStep(2);
   };
 
   const handleResend = () => {
     if (cooldown > 0) return;
-    const c = genCode();
+    const c = gen2FACode();
     setServerCode(c);
     setCooldown(30);
-    show(`Nieuwe 2FA-code: ${c}`, "medium", 10000);
+    show("Een nieuwe code is gegenereerd.", "success", 2000);
   };
 
   const handlePaste = async () => {
     try {
       const txt = await navigator.clipboard.readText();
-      setCode((txt || "").replace(/\D/g, "").slice(0, 6));
+      setUserCode((txt || "").replace(/\D/g, "").slice(0, 6));
     } catch {
     }
   };
 
-  const handleLogin = (e) => {
+  const handle2FASubmit = (e) => {
     e.preventDefault();
-    if (!code || code !== serverCode) {
+    if (!userCode || userCode !== serverCode) {
       return show("Onjuiste code.", "danger", 3000);
     }
+
     login({ email, user: DEFAULT_USER });
     show("Ingelogd.", "success", 1200);
     setTimeout(() => history.replace("/dashboard"), 200);
@@ -89,31 +93,40 @@ const Login = ({ history }) => {
       </IonHeader>
 
       <IonContent className="ion-padding">
-        {!sent ? (
-          <form onSubmit={handleSend} noValidate>
+        {step === 1 && (
+          <form onSubmit={handlePasswordSubmit} noValidate>
             <IonItem>
-              <IonLabel position="stacked">E-mail</IonLabel>
-             <IonInput
-  type="email"
-  value={email}
-  placeholder="jij@rec.nl"
-  onIonInput={e => {
-    const val = e.detail.value ?? e.target.value ?? "";
-    setEmail(val);
-  }}
-  required
-/>
+              <IonLabel position="stacked">E-mailadres</IonLabel>
+              <IonInput
+                type="email"
+                value={email}
+                placeholder="jij@rec.nl"
+                onIonInput={(e) => setEmail(e.detail.value ?? "")}
+                required
+              />
+            </IonItem>
+            <IonItem>
+              <IonLabel position="stacked">Wachtwoord</IonLabel>
+              <IonInput
+                type="password"
+                value={password}
+                placeholder="Wachtwoord"
+                onIonInput={(e) => setPassword(e.detail.value ?? "")}
+                required
+              />
             </IonItem>
             <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 12 }}>
-              <IonButton type="submit">Stuur code</IonButton>
+              <IonButton type="submit">Volgende</IonButton>
             </div>
             <IonText color="medium">
               <p style={{ marginTop: 12 }}>
-                Dit is een <b>2FA-simulatie</b>. De code verschijnt als melding én hieronder in het scherm.
+                Dit is een <b>login-simulatie</b>. U kunt een willekeurig e-mailadres invullen en elk wachtwoord wordt geaccepteerd. De voltooide app werkt uiteraard met een werkende login.
               </p>
             </IonText>
           </form>
-        ) : (
+        )}
+
+        {step === 2 && (
           <>
             <IonCard>
               <IonCardContent style={{ textAlign: "center" }}>
@@ -134,23 +147,23 @@ const Login = ({ history }) => {
               </IonCardContent>
             </IonCard>
 
-            <form onSubmit={handleLogin} noValidate>
+            <form onSubmit={handle2FASubmit} noValidate>
               <IonItem>
                 <IonLabel position="stacked">Bevestig code</IonLabel>
-<IonInput
-  inputmode="numeric"
-  value={code}
-  placeholder="6-cijferige code"
-  onIonInput={e => {
-    const val = e.detail.value ?? e.target.value ?? "";
-    setCode((val || "").replace(/\D/g, "").slice(0, 6));
-  }}
-  required
-/>
+                <IonInput
+                  inputmode="numeric"
+                  value={userCode}
+                  placeholder="6-cijferige code"
+                  onIonInput={e => {
+                    const val = e.detail.value ?? "";
+                    setUserCode(val.replace(/\D/g, "").slice(0, 6));
+                  }}
+                  required
+                />
               </IonItem>
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
-                <IonButton fill="outline" onClick={() => setSent(false)}>Andere e-mail</IonButton>
-                <IonButton type="submit" disabled={code.length !== 6}>Inloggen</IonButton>
+                <IonButton fill="outline" onClick={() => setStep(1)}>Terug</IonButton>
+                <IonButton type="submit" disabled={userCode.length !== 6}>Inloggen</IonButton>
               </div>
             </form>
           </>

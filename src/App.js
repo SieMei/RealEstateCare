@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import {
@@ -15,7 +14,6 @@ import { IonReactRouter } from "@ionic/react-router";
 import { home, search, book, personCircle } from "ionicons/icons";
 
 import useLocalStorage from "./hooks/useLocalStorage";
-import PrivateRoute from "./components/PrivateRoute";
 import Dashboard from "./pages/Dashboard";
 import Inspecties from "./pages/Inspecties";
 import InspectieDetail from "./pages/InspectieDetail";
@@ -44,13 +42,13 @@ function AppTabs({ dark, setDark }) {
     <IonTabs>
       <IonRouterOutlet>
         <Redirect path="/" to="/dashboard" exact />
-        <PrivateRoute path="/dashboard" component={Dashboard} exact />
-        <PrivateRoute path="/inspecties" component={Inspecties} exact />
-        <PrivateRoute path="/inspecties/:id" component={InspectieDetail} exact />
-        <PrivateRoute path="/inspecties/uitgevoerd" component={UitgevoerdeInspecties} exact />
-        <PrivateRoute path="/kennisbank" component={Kennisbank} exact />
-        <PrivateRoute path="/profiel" component={Profiel} exact />
-        <PrivateRoute path="/instellingen" component={Instellingen} exact />
+        <Route path="/dashboard" component={Dashboard} exact />
+        <Route path="/inspecties" component={Inspecties} exact />
+        <Route path="/inspecties/:id" component={InspectieDetail} exact />
+        <Route path="/inspecties/uitgevoerd" component={UitgevoerdeInspecties} exact />
+        <Route path="/kennisbank" component={Kennisbank} exact />
+        <Route path="/profiel" component={Profiel} exact />
+        <Route path="/instellingen" render={(props) => <Instellingen {...props} dark={dark} setDark={setDark} />} exact />
       </IonRouterOutlet>
 
       <IonTabBar slot="bottom">
@@ -78,12 +76,14 @@ function AppTabs({ dark, setDark }) {
 export default function App() {
   const [dark, setDark] = useLocalStorage("prefersDark", false);
 
-  // donker thema toepassen
+  // donker thema toepassen op body en html
   useEffect(() => {
     document.body.classList.toggle("dark", !!dark);
+    document.documentElement.classList.toggle("dark", !!dark);
   }, [dark]);
+
   return (
-    <IonApp>
+    <IonApp key={dark ? 'dark' : 'light'}>
       <IonReactRouter>
         <Switch>
           <Route path="/login" component={Login} exact />

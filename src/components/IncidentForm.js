@@ -29,7 +29,7 @@ const TYPE_OPTIONS = [
   { value: "modification", label: "Modificatie" },
 ];
 
-// Helper om datum te formateren voor <input type="date" />
+// helper om datum te formateren voor <input type="date" />
 function toDateInputValue(d) {
   if (!d) return "";
   const dt = typeof d === "string" ? new Date(d) : d;
@@ -445,6 +445,7 @@ export default function IncidentForm({ initial = {}, onChange }) {
         <div style={{ padding: "0 16px 12px" }}>
           <PhotoCapture onAdd={addPhoto} />
         </div>
+        
       </IonList>
     </>
   );

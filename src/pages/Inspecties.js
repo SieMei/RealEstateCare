@@ -41,7 +41,6 @@ const Inspecties = () => {
   return (
     <IonPage>
       <IonHeader>
-   
         <IonToolbar color="primary">
           <IonButtons slot="start">
             <IonBackButton defaultHref="/dashboard" />

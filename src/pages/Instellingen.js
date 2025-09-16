@@ -30,8 +30,7 @@ const defaultUser = {
   role: "Inspecteur vastgoed",
 };
 
-const Instellingen = () => {
-  const [dark, setDark] = useLocalStorage("darkMode", false);
+const Instellingen = ({ dark, setDark }) => {
   const [user] = useLocalStorage("user", defaultUser);
 
   // voorkeuren
