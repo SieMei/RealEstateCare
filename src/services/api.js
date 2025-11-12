@@ -1,5 +1,5 @@
 
-const API_URL = "https://rec-api.azurewebsites.net";
+const API_URL = "https://rec-api-alpha.vercel.app";
 
 // helper om responses te checken
 async function handleResponse(res, errorMsg) {
